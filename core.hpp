@@ -13,9 +13,8 @@ struct Core {
     // 3D data: channels × n × m
     // flattened into a 1D vector. Each entry is one channel value (0-255).
     std::vector<uint8_t> matrix;
-
-    Core(std::size_t m_ = 0, std::size_t n_ = 0)
-      : m(m_), n(n_), matrix() {}
+     // Constructor
+   explicit Core(std::size_t m_ = 0, std::size_t n_ = 0);
 
     // imageProcessor will allocate/populate matrix to size (3 * n * m) for 3 channels.
     void imageProcessor();
