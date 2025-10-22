@@ -5,24 +5,28 @@
 #include <vector>
 #include <cstddef>  // for size_t
 #include <cstdint>  // for uint8_t
-
+#include <array>
 struct Core {
     std::size_t m;  // number of columns (width)
     std::size_t n;  // number of rows (height)
+// Original image dimensions (set during imageProcessor)
+    std::size_t origWidth;   // number of columns of the original image
+    std::size_t origHeight;  // number of rows of the original image
 
     // 3D data: channels × n × m
     // flattened into a 1D vector. Each entry is one channel value (0-255).
     std::vector<uint8_t> matrix;
      // Constructor
-   explicit Core(std::size_t m_ = 0, std::size_t n_ = 0);
+ Core(std::size_t width = 0, std::size_t height = 0)
+      : origWidth(width), origHeight(height), matrix() {}
 
     // imageProcessor will allocate/populate matrix to size (3 * n * m) for 3 channels.
     void imageProcessor();
-
+// 2. Nearest-Color Mapper: map each pixel’s color in matrix to nearest in palette
     void mapToNearestColor(const std::vector<std::array<uint8_t,3>>& palette);
-
+// 3. Pixel Averaging Function — block reduction (2D → smaller 2D)
     Core reduceBlocks(std::size_t blockM, std::size_t blockN) const;
-
+ // 4. Wall — Matrix-Driven Balls: interpret the matrix to compute “balls” count & size
     void matrixToBalls();
 };
 
