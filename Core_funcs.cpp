@@ -1,7 +1,7 @@
 #include "Core.hpp"
 #include <iostream>
 #include <stdexcept>
-
+#include <Python.h>
 // Constructor
 Core::Core(std::size_t m_, std::size_t n_)
   : m(m_), n(n_), matrix()
