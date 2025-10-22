@@ -1,7 +1,11 @@
-#include "Core.hpp"
-#include <iostream>
-#include <stdexcept>
-#include <Python.h>
+#include "Core.hpp"        // for your struct definition
+#include <iostream>        // for std::cout, std::cerr
+#include <stdexcept>       // for std::runtime_error
+#include <cstdlib>         // for std::system()
+#include <fstream>         // for std::ifstream
+#include <cstddef>         // for std::size_t
+#include <cstdint>         // for uint8_t
+
 // Constructor
 Core::Core(std::size_t m_, std::size_t n_)
   : m(m_), n(n_), matrix()
