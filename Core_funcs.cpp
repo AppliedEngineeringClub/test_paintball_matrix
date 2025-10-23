@@ -7,7 +7,7 @@
 #include <cstdint>         // for uint8_t
 
 // Constructor
-Core::core(std::size_t m_, std::size_t n_)
+Core::Core(std::size_t m_, std::size_t n_)
   : m(m_), n(n_), matrix()
 {}
 
@@ -92,7 +92,7 @@ void Core::mapToNearestColor(const std::vector<std::array<uint8_t,3>>& palette) 
 }
 
 // reduceBlocks implementation stub
-core Core::reduceBlocks(std::size_t blockM, std::size_t blockN) const {
+Core Core::reduceBlocks(std::size_t blockM, std::size_t blockN) const {
     // TODO: implement block reduction logic
     return Core(0,0);
 }
