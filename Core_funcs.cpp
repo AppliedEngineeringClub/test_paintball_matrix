@@ -7,11 +7,11 @@
 #include <cstdint>         // for uint8_t
 
 // Constructor
-Core::Core(std::size_t m_, std::size_t n_)
+core::core(std::size_t m_, std::size_t n_)
   : m(m_), n(n_), matrix()
 {}
 
-void Core::imageProcessor() {
+void core::imageProcessor() {
     // --- Step 1: Get dimensions from Python via external script ---
     {
         int ret = std::system("python3 get_dimensions.py > pythonoutput.txt");
@@ -87,17 +87,17 @@ void Core::imageProcessor() {
 
 
 // mapToNearestColor implementation stub
-void Core::mapToNearestColor(const std::vector<std::array<uint8_t,3>>& palette) {
+void core::mapToNearestColor(const std::vector<std::array<uint8_t,3>>& palette) {
     // TODO: implement nearest-color mapping
 }
 
 // reduceBlocks implementation stub
-Core Core::reduceBlocks(std::size_t blockM, std::size_t blockN) const {
+core core::reduceBlocks(std::size_t blockM, std::size_t blockN) const {
     // TODO: implement block reduction logic
     return Core(0,0);
 }
 
 // matrixToBalls implementation stub
-void Core::matrixToBalls() {
+void core::matrixToBalls() {
     // TODO: implement matrix-to-balls logic
 }
