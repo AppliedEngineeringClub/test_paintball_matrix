@@ -51,7 +51,8 @@ void Core::imageProcessor() {
         if (!in2) {
             throw std::runtime_error("Cannot open pythonoutput.bin for reading matrix data");
         }
-
+//[ [[225,244,232].[234,234,234],[234,234,234]],
+//      [[r,g,b]    ,[r,g,b],       [r,g,b]]      ]
         in2.read(reinterpret_cast<char*>(matrix.data()),
                  matrix.size() * sizeof(uint8_t));
         if (!in2) {
