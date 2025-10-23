@@ -1,4 +1,4 @@
-#include "Core.hpp"        // for your struct definition
+#include "core.hpp"        // for your struct definition
 #include <iostream>        // for std::cout, std::cerr
 #include <stdexcept>       // for std::runtime_error
 #include <cstdlib>         // for std::system()
