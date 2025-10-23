@@ -6,3 +6,6 @@ build/
 
 # Ignore the test folder for CMake
 test/
+
+# Ignore Conda enviornment
+env/
