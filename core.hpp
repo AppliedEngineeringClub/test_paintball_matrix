@@ -1,4 +1,4 @@
-// Core.hpp
+// core.hpp
 #ifndef CORE_HPP
 #define CORE_HPP
 
