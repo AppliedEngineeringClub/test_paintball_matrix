@@ -42,14 +42,14 @@ void Core::imageProcessor() {
     // Try to generate outputs with Python helper (non-fatal if missing Pillow).
     // Preferred: get_matrix_data.py writes image/out/pythonoutput.bin and meta.json
     // Fallbacks handled below.
-    (void)std::system("python3 get_matrix_data.py > /dev/null 2>&1");
+    (void)std::system("python3 python/get_matrix_data.py > /dev/null 2>&1");
 
     // First attempt: read width/height from image/out/meta.json (written by get_matrix_data.py)
     long w = -1, h = -1;
     if (!extractIntFromJson("image/out/meta.json", "width", w) ||
         !extractIntFromJson("image/out/meta.json", "height", h)) {
         // Second attempt: use legacy get_dimensions.py which writes pythonoutput.txt
-        if (std::system("python3 get_dimensions.py > /dev/null 2>&1") == 0) {
+        if (std::system("python3 python/get_dimensions.py > /dev/null 2>&1") == 0) {
             std::ifstream din("pythonoutput.txt");
             if (din) {
                 din >> w >> h;
