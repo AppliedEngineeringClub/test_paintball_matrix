@@ -9,3 +9,6 @@ test/
 
 # Ignore Conda enviornment
 env/
+
+# Ignore .pyc files
+*.pyc
