@@ -10,7 +10,7 @@ then writes its width and height in pixels to the file
 from PIL import Image  # Requires Pillow library
 import sys
 
-image_path = "image/image.png"  # hard-coded path of input image
+image_path = " ~/image/image.png"  # hard-coded path of input image
 
 try:
     img = Image.open(image_path)
