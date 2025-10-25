@@ -2,7 +2,7 @@ width = 0.0
 height = 0.0
 
 
-def cartesian_to_native(x, y, w=width, h=height):
+def cartesian_to_native(x, y, w=None, h=None):
     """
     Returns coordinates from native, origin at TOP LEFT, to cartesian, origin at center
 
@@ -15,15 +15,34 @@ def cartesian_to_native(x, y, w=width, h=height):
     Returns:
         tuple (float, float): The native coordinates in the form of (x, y)
     """
+
+    if w == None:
+        w = width
+
+    if h == None:
+        h = height
+    
     return cartesian_to_native_x(x, w), cartesian_to_native_y(y, h)
 
-def cartesian_to_native_x(x, w=width):
+def cartesian_to_native_x(x, w=None):
+    if w == None:
+        w = width
+
     return x + (w / 2)
 
-def cartesian_to_native_y(y, h=height):
+def cartesian_to_native_y(y, h=None):
+    if h == None:
+        h = height
+
     return -y + (h / 2)
 
-def native_to_cartesian(x, y, w=width, h=height):
+def native_to_cartesian(x, y, w=None, h=None):
+    if w == None:
+        w = width
+
+    if h == None:
+        h = height
+
     return native_to_cartesian_x(x, w), native_to_cartesian_y(y, h)
 
 def native_to_cartesian_x(x, w):

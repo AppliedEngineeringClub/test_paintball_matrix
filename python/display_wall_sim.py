@@ -31,7 +31,7 @@ while keep_alive:
 
     screen.fill(BACKGROUND_COLOR)
     # pygame.draw.rect(screen, (0, 0, 200, 200))
-    center = util.native_to_cartesian(0, 0)
+    center = util.cartesian_to_native(0, 0)
     pygame.draw.circle(screen, (255, 0, 0), center, 40)
 
     pygame.display.flip()
