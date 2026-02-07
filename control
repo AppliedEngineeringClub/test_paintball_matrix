@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# =========================
+# Usage
+# =========================
+if [[ $# -ne 2 ]]; then
+  cat <<USAGE
+Usage:
+  $0 PA# on|off        (solenoid)
+  $0 PA# angle(0-270)  (servo)
+Examples:
+  $0 PA1 on
+  $0 PA1 off
+  $0 PA6 135
+USAGE
+  exit 1
+fi
+
+PA="$1"
+VAL="$2"
+
+# =========================
+# PA -> GPIO map
+# =========================
+declare -A PA_GPIO=(
+  [PA0]=0
+  [PA1]=1
+  [PA2]=2
+  [PA3]=3
+  [PA6]=6
+  [PA7]=7
+  [PA18]=18
+  [PA19]=19
+  [PA15]=15
+)
+
+# classify pins
+SOLENOIDS=(PA0 PA1 PA3 PA7 PA18 PA19 PA15)
+SERVOS=(PA6 PA2)
+
+is_in() {
+  local x="$1"; shift
+  for e in "$@"; do [[ "$e" == "$x" ]] && return 0; done
+  return 1
+}
+
+GPIO="${PA_GPIO[$PA]:-}"
+if [[ -z "$GPIO" ]]; then
+  echo "Unknown pin: $PA"
+  exit 1
+fi
+
+GPIO_PATH="/sys/class/gpio/gpio$GPIO"
+
+# =========================
+# Ensure gpio exported and set output
+# =========================
+if [[ ! -d "$GPIO_PATH" ]]; then
+  echo "$GPIO" > /sys/class/gpio/export 2>/dev/null || true
+  sleep 0.05
+fi
+echo out > "$GPIO_PATH/direction"
+
+# =========================
+# SOLENOID
+# =========================
+if is_in "$PA" "${SOLENOIDS[@]}"; then
+  case "$VAL" in
+    on)  echo 1 > "$GPIO_PATH/value" ;;
+    off) echo 0 > "$GPIO_PATH/value" ;;
+    *)
+      echo "Solenoid $PA accepts: on | off"
+      exit 1
+      ;;
+  esac
+  echo "[OK] Solenoid $PA -> $VAL"
+  exit 0
+fi
+
+# =========================
+# SERVO (delegate)
+# =========================
+if is_in "$PA" "${SERVOS[@]}"; then
+  if ! [[ "$VAL" =~ ^[0-9]+$ ]] || (( VAL < 0 || VAL > 270 )); then
+    echo "Servo $PA angle must be 0–270"
+    exit 1
+  fi
+
+  # servo_angle expects: ./servo_angle <gpio#> <angle>
+  exec ./servo_angle "$GPIO" "$VAL"
+fi
+
+echo "Internal error: pin $PA not classified"
+exit 1
